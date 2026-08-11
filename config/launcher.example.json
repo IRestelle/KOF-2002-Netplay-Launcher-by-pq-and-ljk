@@ -5,7 +5,6 @@
   "retroArchConfigPath": "runtime/retroarch/retroarch.cfg",
   "coreOptionsPath": "runtime/retroarch/config/FinalBurn Neo/FinalBurn Neo.opt",
   "runtimeManifestPath": "config/runtime-manifest.json",
-  "tailscalePath": "tools/tailscale-proxy/tailscale.exe",
   "hostAddress": "",
   "netplayPort": 55435
 }

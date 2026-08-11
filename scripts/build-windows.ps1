@@ -9,18 +9,15 @@ if (-not (Test-Path -LiteralPath $csc)) {
 }
 
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+Remove-Item -Path (Join-Path $outDir "*.exe") -Force -ErrorAction SilentlyContinue
 
 $launcherOut = Join-Path $outDir "Kof2002Netplay.exe"
 $mapperOut = Join-Path $outDir "JoystickMapper.exe"
-$proxyOut = Join-Path $outDir "tailscale.exe"
 
 & $csc /nologo /target:winexe /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Web.Extensions.dll /out:$launcherOut (Join-Path $root "src\Kof2002Netplay\Program.cs")
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 & $csc /nologo /target:winexe /r:System.Windows.Forms.dll /r:System.Drawing.dll /out:$mapperOut (Join-Path $root "src\JoystickMapper\Program.cs")
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-& $csc /nologo /target:exe /out:$proxyOut (Join-Path $root "src\TailscaleStatusProxy\Program.cs")
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host "Build complete: $outDir"

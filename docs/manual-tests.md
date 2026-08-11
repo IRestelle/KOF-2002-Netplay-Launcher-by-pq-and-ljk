@@ -13,7 +13,6 @@ Use this checklist before publishing a release package.
 ## Network
 
 - Radmin VPN peer ping is stable.
-- Tailscale peer route is direct when using Tailscale.
 - Client joins as player 2.
 - Connection remains established for at least 10 minutes.
 

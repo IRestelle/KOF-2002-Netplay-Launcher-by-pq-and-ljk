@@ -94,13 +94,7 @@ internal sealed class LauncherForm : Form
 
             if (!host && string.IsNullOrWhiteSpace(config.hostAddress))
             {
-                throw new InvalidOperationException("好友端配置缺少主机 Tailscale IPv4。");
-            }
-
-            string tailscaleNote = IsTailscaleAddress(config.hostAddress) ? CheckTailscale(config) : "tailscale_skipped_non_100_ip";
-            if (tailscaleNote.Length > 0)
-            {
-                Log("tailscale_note=" + tailscaleNote);
+                throw new InvalidOperationException("好友端配置缺少主机 Radmin VPN IP。");
             }
 
             StopRetroArch();
@@ -172,66 +166,6 @@ internal sealed class LauncherForm : Form
                 throw new InvalidOperationException(Path.GetFileName(relativePath) + " 哈希不一致。");
             }
         }
-    }
-
-    private string CheckTailscale(LauncherConfig config)
-    {
-        string path = ResolvePath(config.tailscalePath);
-        if (!File.Exists(path))
-        {
-            return "tailscale_missing";
-        }
-
-        try
-        {
-            var psi = new ProcessStartInfo
-            {
-                FileName = path,
-                Arguments = "status --json",
-                WorkingDirectory = root,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding = Encoding.UTF8
-            };
-
-            foreach (string key in new[] { "HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "http_proxy", "https_proxy", "all_proxy" })
-            {
-                if (psi.EnvironmentVariables.ContainsKey(key))
-                {
-                    psi.EnvironmentVariables.Remove(key);
-                }
-            }
-
-            using (var process = Process.Start(psi))
-            {
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit(5000);
-
-                if (!output.Contains("\"BackendState\": \"Running\"") && !output.Contains("\"BackendState\":\"Running\""))
-                {
-                    return "tailscale_not_running";
-                }
-            }
-        }
-        catch
-        {
-            return "tailscale_status_unreadable";
-        }
-
-        return "";
-    }
-
-    private static bool IsTailscaleAddress(string address)
-    {
-        if (string.IsNullOrWhiteSpace(address))
-        {
-            return false;
-        }
-
-        return address.Trim().StartsWith("100.", StringComparison.Ordinal);
     }
 
     private List<string> BuildRetroArchArguments(LauncherConfig config, bool host, string logName)
@@ -408,7 +342,6 @@ internal sealed class LauncherConfig
     public string corePath { get; set; }
     public string contentPath { get; set; }
     public string retroArchConfigPath { get; set; }
-    public string tailscalePath { get; set; }
     public string hostAddress { get; set; }
     public int netplayPort { get; set; }
 }
