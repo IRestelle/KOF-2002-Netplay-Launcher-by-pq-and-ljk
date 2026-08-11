@@ -14,6 +14,11 @@ This repository contains only the launcher source code, helper scripts, example 
 - Joystick mapping helper for arcade sticks/gamepads.
 - Low-latency and rescue netplay configuration examples.
 
+## Contributors
+
+- [IRestelle](https://github.com/IRestelle)
+- [JKLee4049](https://github.com/JKLee4049)
+
 ## Repository Layout
 
 ```text
