@@ -1,0 +1,31 @@
+# Build outputs
+bin/
+obj/
+dist/
+*.exe
+*.pdb
+*.dll
+
+# Runtime/game payloads
+runtime/
+rom/
+logs/
+saves/
+states/
+downloads/
+.downloads/
+.tools/
+
+# Local generated configs
+config/launcher.json
+config/kof2002-session.generated.cfg
+*.local.*
+*.zip
+
+# User/editor files
+.vs/
+.vscode/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
