@@ -2,7 +2,7 @@
 setlocal
 set "CFG=%~dp0..\config\kof2002-netplay-low-latency.cfg"
 (
-echo # Rescue netplay profile for unstable Radmin VPN links.
+echo # Rescue netplay profile for unstable Radmin VPN/high packet loss.
 echo netplay_delay_frames = "60"
 echo netplay_check_frames = "0"
 echo netplay_client_swap_input = "true"

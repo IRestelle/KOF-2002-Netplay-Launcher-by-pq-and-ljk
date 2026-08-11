@@ -13,6 +13,7 @@ Use this checklist before publishing a release package.
 ## Network
 
 - Radmin VPN peer ping is stable.
+- Radmin VPN uses the expected host/client addresses.
 - Client joins as player 2.
 - Connection remains established for at least 10 minutes.
 
